@@ -75,12 +75,12 @@ void nonblock(enum BlockState state)
 
 void blockTerminal()
 {
-	nonblock(NB_ENABLE);
+	nonblock(NB_DISABLE);
 }
 
 void unblockTerminal()
 {
-	nonblock(NB_DISABLE);
+	nonblock(NB_ENABLE);
 }
 
 
