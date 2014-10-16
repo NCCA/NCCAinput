@@ -3,7 +3,7 @@ This is a minimal c style input library to help with basic console programming t
 
 It has the following functions
 
-'''C
+```c++
 /// @brief block the terminal so it will wait for user input (usually terminal waits for a return)
 extern void blockTerminal();
 /// @brief unblock the terminal (default)
@@ -39,4 +39,4 @@ enum Colours{NORMAL,RED,GREEN ,YELLOW,BLUE,MAGENTA,CYAN,WHITE,RESET};
 extern void setColour(enum Colours c);
 
 
-'''
+```
