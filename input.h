@@ -19,6 +19,8 @@ extern char getSingleCharUpper();
 extern char getSingleCharLower();
 /// @brief attempt to get an int from the stream (NONBLOCKING)
 extern int getInt();
+/// @brief attempt to get an float from the stream (NONBLOCKING)
+float getFloat();
 
 /// @brief turn terminal echo On (default is on)
 extern int echoOn();

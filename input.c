@@ -75,7 +75,7 @@ void nonblock(enum BlockState state)
 
 void blockTerminal()
 {
-	nonblock(	NB_ENABLE);
+	nonblock(NB_ENABLE);
 }
 
 void unblockTerminal()
@@ -84,25 +84,48 @@ void unblockTerminal()
 }
 
 
+
 int getInt()
-{
-	int initialState=s_termState;
+{	
+	// preserve the current state
+	int currentTermState=s_termState;
+	// if we are block enable for canonical input
+	if(s_termState==NB_ENABLE)
+		nonblock(NB_DISABLE);
+
+	char line[1024];
+	fgets(line, sizeof (line), stdin);
 	
-	if(s_termState ==NB_DISABLE)
-		unblockTerminal();
 	
-	char line[50];
-	fgets(line, sizeof(line), stdin);
 	char *ptr;
 	int ret = strtol(line, &ptr, 10);
-	fflush(stdin);
-	clearInput();
-	if(initialState ==NB_DISABLE)
-		blockTerminal();
+
+	if(currentTermState==NB_ENABLE)
+		nonblock(NB_ENABLE);
+
 	return ret;	
 }
 
+float getFloat()
+{	
+	// preserve the current state
+	int currentTermState=s_termState;
+	// if we are block enable for canonical input
+	if(s_termState==NB_ENABLE)
+		nonblock(NB_DISABLE);
 
+	char line[1024];
+	fgets(line, sizeof (line), stdin);
+	
+	
+	char *ptr;
+	float ret = strtof(line, &ptr);
+
+	if(currentTermState==NB_ENABLE)
+		nonblock(NB_ENABLE);
+
+	return ret;	
+}
 // standard getting of input from terminal
 char getSingleChar()
 {
@@ -116,7 +139,7 @@ char getSingleCharUpper()
 {
 
   int c=(char)fgetc(stdin);
-	return toupper(c);
+  return toupper(c);
 }
 
 // standard getting of input from terminal
@@ -124,7 +147,7 @@ char getSingleCharLower()
 {
 
   int c=(char)fgetc(stdin);
-	return tolower(c);
+  return tolower(c);
 }
 // modified from http://stackoverflow.com/questions/6856635/hide-password-input-on-terminal
 int echoOn()
@@ -161,15 +184,15 @@ int echoOff()
 // modified from http://faq.cprogramming.com/cgi-bin/smartfaq.cgi?id=1043284392&answer=1044873249	
 void clearInput()
 {
-int ch;
-while ((ch = getchar()) != '\n' && ch != EOF);
+	int ch;
+	while ((ch = getchar()) != '\n' && ch != EOF);
 }
 
-// modified from 	
+// modified from various stack overflow posts!	
 void clearscreen()
 {
-  const char* CLEAR_SCREE_ANSI = "\e[1;1H\e[2J";
-  write(STDOUT_FILENO,CLEAR_SCREE_ANSI,12);
+  const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+  write(STDOUT_FILENO,CLEAR_SCREEN_ANSI,12);
 }
 
 	
