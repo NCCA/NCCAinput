@@ -1,9 +1,15 @@
 #NCCA C Input Library
 This is a minimal c style input library to help with basic console programming tasks.
 
+A simple demo program is included in [main.c](https://github.com/NCCA/NCCAinput/blob/master/main.c) showing some of the functions in action.  It can be compiled using the following command line
+
+```c
+clang -Wall -g main.c input.c -o inputTest
+```
+
 It has the following functions
 
-```c++
+```c
 /// @brief block the terminal so it will wait for user input (usually terminal waits for a return)
 extern void blockTerminal();
 /// @brief unblock the terminal (default)
